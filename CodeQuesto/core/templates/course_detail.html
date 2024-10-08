@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{% load static %}
+		<title>Course Details</title>
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+	</head>
+	<body>
+		<header>
+			<h1>{{ course.title }}</h1>
+			<p>{{ course.description }}</p>
+			<p><strong>Level:</strong> {{ course.level }}</p>
+		</header>
+
+		<section class="lessons-list">
+			<h2>Lessons in this Course</h2>
+			<ul>
+				{% if course.lessons.exists %} {% for lesson in course.lessons.all %}
+
+				<li>
+					<a href="{% url 'lesson_detail' lesson.id %}">{{ lesson.title }}</a>
+				</li>
+
+				{% endfor %} {% else %}
+				<p>No lessons available for this course.</p>
+				{% endif %}
+			</ul>
+		</section>
+
+		<footer>
+			<p>&copy; 2024 CodeQuest. All rights reserved.</p>
+		</footer>
+	</body>
+</html>

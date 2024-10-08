@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Welcome - CodeQuest</title>
+		{% load static %}
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Sixtyfour+Convergence&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="container">
+			<header>
+				<h1>Welcome to CodeQuest</h1>
+				<p>Empowering Youth with Offline Tech Education</p>
+			</header>
+			<main>
+				<section id="intro">
+					<h2>About CodeQuest</h2>
+					<p>Your gateway to offline learning in tech for the youth.</p>
+					<button onclick="window.location.href='{% url 'signup' %}'">
+						Sign Up
+					</button>
+					<button onclick="window.location.href='{% url 'login' %}'">
+						Login
+					</button>
+					<button onclick="window.location.href='{% url 'home' %}'">
+						Continue as Guest
+					</button>
+				</section>
+			</main>
+		</div>
+	</body>
+</html>

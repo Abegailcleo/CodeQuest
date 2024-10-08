@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{% load static %}
+		<title>Leaderboard - CodeQuest</title>
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+	</head>
+	<body>
+		<header>
+			<h1>Leaderboard</h1>
+			<nav>
+				<a href="{% url 'home' %}">Home</a>
+				<a href="{% url 'profile' %}">Profile</a>
+				<a href="{% url 'logout' %}">Logout</a>
+			</nav>
+		</header>
+		<main>
+			<section id="leaderboard">
+				<h2>Top Learners</h2>
+				<ol>
+					<li>User 1 - 1200 Points</li>
+					<li>User 2 - 1150 Points</li>
+					<li>User 3 - 1100 Points</li>
+					<!-- More users -->
+				</ol>
+			</section>
+			<section id="badges">
+				<h2>Your Achievements</h2>
+				<p>You have earned 5 badges!</p>
+				<!-- Badge icons as placeholders -->
+				<div class="badge">Python Beginner</div>
+				<div class="badge">HTML Novice</div>
+				<!-- More badges -->
+			</section>
+		</main>
+	</body>
+</html>

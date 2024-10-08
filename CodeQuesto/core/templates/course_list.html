@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Course List</title>
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+	</head>
+	<body>
+		<header>
+			<h1>Select Your Course</h1>
+		</header>
+
+		<section class="course-list">
+			<h2>Available Courses</h2>
+			<ul>
+				{% if courses %} {% for course in courses %}
+				<li class="course-item">
+					<a href="{% url 'course_detail' course.id %}"> {{ course.title }} </a>
+				</li>
+				{% endfor %} {% else %}
+				<p>No courses available.</p>
+				{% endif %}
+			</ul>
+		</section>
+
+		<footer>
+			<p>&copy; 2024 CodeQuest. All rights reserved.</p>
+		</footer>
+	</body>
+</html>

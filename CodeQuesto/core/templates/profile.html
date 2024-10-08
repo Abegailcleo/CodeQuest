@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{% load static %}
+		<title>Profile - CodeQuest</title>
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+	</head>
+	<body>
+		<header>
+			<h1>Your Profile</h1>
+			<nav>
+				<a href="{% url 'home' %}">Home</a>
+				<a href="{% url 'logout' %}">Logout</a>
+			</nav>
+		</header>
+		<main>
+			<section id="profile-details">
+				<h2>{{ user.username }}'s Profile</h2>
+				<p>Email: {{ user.email }}</p>
+				<p>Joined: {{ user.date_joined }}</p>
+				<button>Edit Profile</button>
+			</section>
+			<section id="badges">
+				<h2>Your Badges</h2>
+				<ul>
+					{% for badge in badges %}
+					<li>{{ badge.name }} - {{ badge.description }}</li>
+					{% empty %}
+					<li>No badges earned yet.</li>
+					{% endfor %}
+				</ul>
+			</section>
+			<section id="completed-courses">
+				<h2>Completed Courses</h2>
+				<ul>
+					{% for course in completed_courses %}
+					<li>{{ course.title }}</li>
+					{% empty %}
+					<li>No courses completed yet.</li>
+					{% endfor %}
+				</ul>
+			</section>
+			<section id="activity">
+				<h2>Recent Activity</h2>
+				<ul>
+					<li>Completed Module 2: Variables</li>
+					<li>Earned Python Beginner Badge</li>
+					<!-- More activity -->
+				</ul>
+			</section>
+		</main>
+	</body>
+</html>

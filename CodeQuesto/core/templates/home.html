@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{% load static %}
+		<title>Home - CodeQuest</title>
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+		<style></style>
+	</head>
+
+	<body>
+		<header>
+			<h1>Welcome, {{ user.username }}!</h1>
+			<nav>
+				<a href="{% url 'profile' %}">Profile</a>
+				<a href="{% url 'logout' %}">Logout</a>
+			</nav>
+		</header>
+
+		<main>
+			<section id="courses-navigation">
+				<h2>Your Learning Paths</h2>
+				<p>
+					Explore various courses tailored to your interests and skill level:
+				</p>
+				<button onclick="window.location.href='{% url 'course_list' %}'">
+					Browse Courses
+				</button>
+			</section>
+
+			<!-- Interactive Coding Environment -->
+			<section id="interactive-coding">
+				<h2>Interactive Coding Environment</h2>
+				<p>Practice coding directly in the browser and get instant feedback:</p>
+				<button onclick="window.location.href='{% url 'coding_exercise' %}'">
+					Start Coding
+				</button>
+			</section>
+
+			<!-- Progress Tracking and User Profiles -->
+			<section id="progress">
+				<h2>Your Progress</h2>
+				<p>Track your learning progress and achievements:</p>
+				<div class="progress-bar-container">
+					<p>Python Programming: 45% complete</p>
+					<div class="progress-bar">
+						<div class="progress" style="width: 45%"></div>
+					</div>
+					<p>Web Development: 20% complete</p>
+					<div class="progress-bar">
+						<div class="progress" style="width: 20%"></div>
+					</div>
+				</div>
+				<a href="{% url 'profile' %}" class="view-profile-btn"
+					>View Your Profile</a
+				>
+			</section>
+
+			<!-- Gamification Elements -->
+			<section id="achievements">
+				<h2>Achievements and Badges</h2>
+				<p>
+					Earn rewards and badges for completing lessons and reaching
+					milestones:
+				</p>
+				<div class="badges">
+					<div class="badge">
+						<img
+							src="{% static 'images/badges/python_badge.png' %}"
+							alt="Python Badge"
+						/>
+						<p>Python Beginner</p>
+					</div>
+					<div class="badge">
+						<img
+							src="{% static 'images/badges/web_dev_badge.png' %}"
+							alt="Web Dev Badge"
+						/>
+						<p>Web Development</p>
+					</div>
+					<!-- Add more badges as needed -->
+				</div>
+			</section>
+
+			<!-- Offline Mode and Downloadable Content Packs -->
+			<section id="offline-access">
+				<h2>Offline Access</h2>
+				<p>
+					Download content packs for offline learning and sync your progress
+					when back online:
+				</p>
+				<div class="download-options">
+					<div class="content-pack">
+						<h3>Python for Beginners</h3>
+						<button>Download</button>
+					</div>
+					<div class="content-pack">
+						<h3>HTML/CSS Basics</h3>
+						<button>Download</button>
+					</div>
+					<!-- Add more downloadable content packs -->
+				</div>
+			</section>
+
+			<!-- Quizzes and Assessments -->
+			<section id="quizzes">
+				<h2>Quizzes and Assessments</h2>
+				<p>Test your knowledge with quizzes and track your improvement:</p>
+				<button>Take a Quiz</button>
+			</section>
+
+			<!-- The leaderboard -->
+			<section class="leaderboard">
+				<h2>Leaderboard</h2>
+				<p>See who is leading</p>
+				<button onclick="window.location.href='{% url 'leaderboard' %}'">
+					Check
+				</button>
+			</section>
+		</main>
+
+		<footer>
+			<p>&copy; 2024 CodeQuest. All rights reserved.</p>
+		</footer>
+	</body>
+</html>

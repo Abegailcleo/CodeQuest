@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{% load static %}
+		<title>Coding Exercise - CodeQuest</title>
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
+		<!-- CodeMirror CSS and JS -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css"
+		/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/python/python.min.js"></script>
+
+		<!-- Pyodide for running Python code in the browser -->
+		<script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
+	</head>
+	<body>
+		<header>
+			<nav>
+				<a href="{% url 'home' %}">Home</a>
+				<a href="{% url 'profile' %}">Profile</a>
+				<a href="{% url 'logout' %}">Logout</a>
+			</nav>
+			<h1>Submit and Run Your Code</h1>
+		</header>
+		<main>
+			<form id="code-form">
+				<textarea id="code" name="code" rows="10" cols="30"></textarea>
+				<button type="button" id="run">Run Code</button>
+				<button type="submit">Submit</button>
+			</form>
+			<pre id="result"></pre>
+		</main>
+		<footer></footer>
+
+		<script>
+			// Initialize CodeMirror editor
+			var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+				lineNumbers: true,
+				mode: "python",
+				theme: "default",
+				matchBrackets: true,
+				indentUnit: 4,
+				tabSize: 4,
+			});
+
+			// Function to run Python code using Pyodide
+			async function runCode() {
+				try {
+					if (!window.pyodide) {
+						console.error("Pyodide is not loaded yet.");
+						document.getElementById("result").innerText =
+							"Error: Pyodide not loaded.";
+						return;
+					}
+
+					// Get the code from the editor
+					let code = editor.getValue();
+					console.log("Running code:", code);
+
+					// Redirect print output to capture it in a variable
+					let resultElement = document.getElementById("result");
+					window.pyodide.runPython(`
+                        import sys
+                        from io import StringIO
+                        output = StringIO()
+                        sys.stdout = output
+                    `);
+
+					// Run the Python code
+					await pyodide.runPythonAsync(code);
+
+					// Get the printed output
+					let result = pyodide.runPython(`
+                        sys.stdout.getvalue()
+                    `);
+
+					// Display the result
+					resultElement.innerText = result;
+				} catch (error) {
+					console.error("Error executing code:", error);
+					document.getElementById(
+						"result"
+					).innerText = `Error: ${error.message}`;
+				}
+			}
+
+			// Bind the runCode function to the Run button
+			document.getElementById("run").addEventListener("click", runCode);
+
+			// Handle form submission using fetch to send JSON data
+			document
+				.getElementById("code-form")
+				.addEventListener("submit", async function (event) {
+					event.preventDefault(); // Prevent the default form submission
+
+					const code = editor.getValue(); // Get the code from CodeMirror
+
+					const response = await fetch("{% url 'submit_code' %}", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"X-CSRFToken": "{{ csrf_token }}", // Include CSRF token for security
+						},
+						body: JSON.stringify({ code: code }), // Send the code as JSON
+					});
+
+					const result = await response.json();
+					console.log(result); // Process the response here
+
+					// Optionally, display the server response
+					document.getElementById("result").innerText =
+						result.message || "Code submitted!";
+				});
+
+			// Load Pyodide
+			async function loadPyodideAndRun() {
+				try {
+					console.log("Loading Pyodide...");
+					window.pyodide = await loadPyodide();
+					console.log("Pyodide loaded.");
+				} catch (error) {
+					console.error("Error loading Pyodide:", error);
+					document.getElementById(
+						"result"
+					).innerText = `Error: ${error.message}`;
+				}
+			}
+
+			loadPyodideAndRun();
+		</script>
+	</body>
+</html>

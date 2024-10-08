@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{% load static %}
+		<title>Module - CodeQuest</title>
+		<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+	</head>
+	<body>
+		<header>
+			<h1>Module 2: Variables and Data Types</h1>
+			<nav>
+				<a href="{% url 'home' %}">Home</a>
+				<a href="{% url 'course' %}">Back to Course</a>
+				<a href="{% url 'logout' %}">Logout</a>
+			</nav>
+		</header>
+		<main>
+			<section id="lesson-content">
+				<h2>Lesson: Understanding Variables</h2>
+				<p>
+					In this lesson, you'll learn about variables and data types in
+					Python...
+				</p>
+				<!-- Interactive Code Editor (placeholder) -->
+				<div class="code-editor">
+					<textarea placeholder="Type your Python code here..."></textarea>
+					<button>Run Code</button>
+				</div>
+			</section>
+			<section id="quiz">
+				<h2>Quiz</h2>
+				<p>What is the correct way to declare a variable in Python?</p>
+				<ul>
+					<li><input type="radio" name="q1" /> int x = 5;</li>
+					<li><input type="radio" name="q1" /> x = 5</li>
+					<li><input type="radio" name="q1" /> var x = 5;</li>
+				</ul>
+				<button>Submit</button>
+			</section>
+			<button onclick="window.location.href='{% url 'next-module' %}'">
+				Next Module
+			</button>
+		</main>
+	</body>
+</html>
